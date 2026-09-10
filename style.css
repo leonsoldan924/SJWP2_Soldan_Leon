@@ -254,17 +254,6 @@ nav a:hover {
   color: white;
 }
 
-.projekt-slika {
-  order: 2;
-}
-
-.projekt-slika img {
-  width: 100%;
-  height: 100%;
-
-  object-fit: cover;
-}
-
 .projekt-text {
   padding: 50px 35px;
 
