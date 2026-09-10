@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Canvas</title>
+  </head>
+  <body>
+    <canvas
+      id="myCanvas"
+      width="600"
+      height="600"
+      style="border: 1px solid black"
+    ></canvas>
+
+    <script>
+      let c = document.getElementById("myCanvas");
+      let ctx = c.getContext("2d");
+
+      /* ctx.rect();
+      ctx.moveTo();
+      ctx.lineTo();
+      ctx.beginPath();
+      ctx.arc(200, 300, 100, 0, 2 * Math.PI);
+      ctx.fillstyle("yellow");
+      ctx.fill(); */
+      ctx.moveTo(450, 150);
+      ctx.lineTo(300, 50);
+      ctx.lineTo(150, 150);
+      ctx.lineTo(450, 150);
+      ctx.fillStyle = "red";
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.rect(150, 150, 300, 200);
+      ctx.fillStyle = "blue";
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.rect(170, 250, 50, 100);
+      ctx.fillStyle = "lightblue";
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.rect(280, 250, 100, 50);
+      ctx.fillStyle = "lightblue";
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.rect(500, 180, 20, 180);
+      ctx.fillStyle = "brown";
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.arc(510, 180, 40, 0, 2 * Math.PI);
+      ctx.fillStyle = "green";
+      ctx.fill();
+    </script>
+  </body>
+</html>
