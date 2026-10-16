@@ -59,13 +59,14 @@ canvas {
 input[type="submit"] {
   padding: 10px;
   border-radius: 3%;
+  border: 1px solid black;
   background-color: #c2f8f7;
   width: 100%;
 }
 
 input[type="reset"] {
   padding: 10px;
-  border: 1px black solid;
+  border: 1px solid black;
   border-radius: 4px;
   background-color: #c2f8f7;
   width: 100%;
@@ -73,4 +74,9 @@ input[type="reset"] {
 
 .lbl {
   width: 100%;
+}
+
+svg {
+  background-color: #a3ddf7;
+  border: 1px solid black;
 }
