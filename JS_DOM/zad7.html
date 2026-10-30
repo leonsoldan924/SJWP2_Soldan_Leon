@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p id="upozorenje">Upozorenje.</p>
+    <button onclick="istakni()">Istakni</button>
+    <script>
+        function istakni(){
+            let p= document.getElementById("upozorenje");
+
+            p.textContent = "Ovo je upozorenje";
+            p.style.color = "red";
+            p.style.fontWeight = "bold";
+            p.style.backgroundColor= "yellow";
+        }
+    </script>
+</body>
+</html>

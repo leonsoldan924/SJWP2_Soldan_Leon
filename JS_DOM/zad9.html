@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p id="odlomak">Ovo je odlomak.</p>
+    <button onclick="promjeni()">Promjeni</button>
+    <script>
+        function promjeni(){
+            let p=document.getElementById("odlomak");
+            if(p.style.display=== "none" ){
+                p.style.display = "block";
+            }
+            else{
+                p.style.display = "none";
+             }
+        }
+        
+    </script>
+</body>
+</html>

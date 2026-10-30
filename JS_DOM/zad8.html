@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .kartica {
+            padding: 20px;
+            border: 1px solid black;
+        }
+        .istaknuto {
+            background-color: yellow;
+            border: 3px solid red;
+        }
+    </style>
+</head>
+<body>
+    <div id="MojaKartica" class="kartica">
+        Ovo je moja kartica.
+    </div>
+
+    <button onclick="promjeni()">Promjeni</button>
+    <script>
+        function promjeni(){
+            document.getElementById("MojaKartica").classList.toggle("istaknuto");
+        }
+    </script>
+</body>
+</html>
