@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+  <input type="text" id="unos" placeholder="Upiši nešto...">
+  <p id="poruka"></p>
+  <p id="pritisnutaTipka"></p>
+
+  <script>
+    const unos = document.getElementById("unos");
+    const poruka = document.getElementById("poruka");
+    const pritisnutaTipka = document.getElementById("pritisnutaTipka");
+
+    document.addEventListener("keydown", function(event) {
+      // Dodatno: ignoriraj tipke ako fokus nije u polju za unos
+      if (document.activeElement !== unos) {
+        return;
+      }
+
+      // 4. Ispiši naziv pritisnute tipke u zaseban element
+      pritisnutaTipka.textContent = "Pritisnuta tipka: " + event.key;
+
+      // 2. Ako korisnik pritisne Enter, prikaži poruku „Potvrđeno“
+      if (event.key === "Enter") {
+        poruka.textContent = "Potvrđeno";
+      }
+
+      // 3. Ako pritisne Escape, očisti polje za unos
+      if (event.key === "Escape") {
+        unos.value = "";
+        poruka.textContent = "";
+      }
+    });
+  </script>
+
+</body>
+</html>

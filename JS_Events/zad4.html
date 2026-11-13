@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+  <button id="btnKategorija">Prikaži samo Elektronika</button>
+  <button id="btnSvi">Prikaži sve</button>
+  
+  <h3>Popis proizvoda:</h3>
+  <ul id="listaProizvoda"></ul>
+
+  <h3>Proizvodi skuplji od 50 €:</h3>
+  <ul id="skupiProizvodi"></ul>
+
+  <script>
+    const proizvodi = [
+      { naziv: "Tipkovnica", cijena: 45, kategorija: "Elektronika", stanjeZalihe: 12 },
+      { naziv: "Monitor", cijena: 180, kategorija: "Elektronika", stanjeZalihe: 5 },
+      { naziv: "Radni stol", cijena: 120, kategorija: "Namještaj", stanjeZalihe: 3 },
+      { naziv: "Miš", cijena: 25, kategorija: "Elektronika", stanjeZalihe: 20 },
+      { naziv: "Stolica", cijena: 85, kategorija: "Namještaj", stanjeZalihe: 7 },
+      { naziv: "Bilježnica", cijena: 4, kategorija: "Uredski pribor", stanjeZalihe: 50 }
+    ];
+
+    const listaProizvoda = document.getElementById("listaProizvoda");
+    const skupiProizvodi = document.getElementById("skupiProizvodi");
+
+    function prikaziProizvode(niz) {
+      listaProizvoda.innerHTML = "";
+      niz.forEach(function(proizvod) {
+        const li = document.createElement("li");
+        li.textContent = `${proizvod.naziv} - ${proizvod.cijena} € (${proizvod.kategorija}, zaliha: ${proizvod.stanjeZalihe})`;
+        listaProizvoda.appendChild(li);
+      });
+    }
+
+    prikaziProizvode(proizvodi);
+
+    const skupljiOd50 = proizvodi.filter(function(proizvod) {
+      return proizvod.cijena > 50;
+    });
+
+    skupljiOd50.forEach(function(proizvod) {
+      const li = document.createElement("li");
+      li.textContent = `${proizvod.naziv} - ${proizvod.cijena} €`;
+      skupiProizvodi.appendChild(li);
+    });
+
+    const naziviProizvoda = proizvodi.map(function(proizvod) {
+      return proizvod.naziv;
+    });
+    console.log("Nazivi svih proizvoda:", naziviProizvoda);
+
+    document.getElementById("btnKategorija").addEventListener("click", function() {
+      const elektronika = proizvodi.filter(function(proizvod) {
+        return proizvod.kategorija === "Elektronika";
+      });
+      prikaziProizvode(elektronika);
+    });
+
+    document.getElementById("btnSvi").addEventListener("click", function() {
+      prikaziProizvode(proizvodi);
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   
+  <input type="number" id="brojA" placeholder="Prvi broj">
+  <select id="operacija">
+    <option value="zbroji">+</option>
+    <option value="oduzmi">-</option>
+    <option value="pomnozi">*</option>
+    <option value="podijeli">/</option>
+  </select>
+  <input type="number" id="brojB" placeholder="Drugi broj">
+  <button id="izracunaj">Izračunaj</button>
+  <p id="rezultat"></p>
+
+  <script>
+    
+    function zbroji(a, b) {
+      return a + b;
+    }
+
+    function oduzmi(a, b) {
+      return a - b;
+    }
+
+    function pomnozi(a, b) {
+      return a * b;
+    }
+
+    function podijeli(a, b) {
+      if (b === 0) {
+        return "Greška: Dijeljenje s nulom nije dozvoljeno.";
+      }
+      return a / b;
+    }
+
+    
+    function izvrsi(a, b, operacija) {
+      return operacija(a, b);
+    }
+
+    
+    document.getElementById("izracunaj").addEventListener("click", function() {
+      const a = parseFloat(document.getElementById("brojA").value);
+      const b = parseFloat(document.getElementById("brojB").value);
+      const odabranaOperacija = document.getElementById("operacija").value;
+      const prikazRezultata = document.getElementById("rezultat");
+
+      let rez;
+      
+      if (odabranaOperacija === "zbroji") {
+        rez = izvrsi(a, b, zbroji);
+      } else if (odabranaOperacija === "oduzmi") {
+        rez = izvrsi(a, b, oduzmi);
+      } else if (odabranaOperacija === "pomnozi") {
+        rez = izvrsi(a, b, pomnozi);
+      } else if (odabranaOperacija === "podijeli") {
+        rez = izvrsi(a, b, podijeli);
+      }
+
+      prikazRezultata.textContent = "Rezultat: " + rez;
+    });
+  </script>
+
+</body>
+</html>

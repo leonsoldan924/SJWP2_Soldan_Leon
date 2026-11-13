@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="brojac">+</button>
+    <button id="brojac2">-</button>
+    <button id="res">Reset</button>
+    <p id="ispis">Broj klikova: 0</p>
+    <script>     
+
+        let broj = 0;
+
+        const gumb = document.getElementById("brojac");
+        const gumb2 = document.getElementById("brojac2");
+        const res = document.getElementById("res");
+        const ispis = document.getElementById("ispis");
+
+        gumb.addEventListener("click", function () {
+        
+            broj++;
+        
+            ispis.textContent = "Broj klikova: " + broj;
+        });
+        gumb2.addEventListener("click", function () {
+        
+            broj--;
+        
+            ispis.textContent = "Broj klikova: " + broj;
+        });
+        res.addEventListener("click", function () {
+            broj=0;
+            ispis.textContent = "Broj klikova: " + broj;
+        });
+    </script>
+</body>
+</html>
