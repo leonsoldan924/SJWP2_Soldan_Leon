@@ -107,6 +107,13 @@
       let c = document.getElementById("myCanvas");
       let ctx = c.getContext("2d");
 
+      /* ctx.rect();
+      ctx.moveTo();
+      ctx.lineTo();
+      ctx.beginPath();
+      ctx.arc(200, 300, 100, 0, 2 * Math.PI);
+      ctx.fillstyle("yellow");
+      ctx.fill(); */
       ctx.beginPath();
       ctx.rect(200, 150, 200, 200);
       ctx.fillStyle = "#FDF7DD";
@@ -121,7 +128,6 @@
       ctx.rect(160, 200, 40, 60);
       ctx.fillStyle = "#FCCA2A";
       ctx.fill();
-
       ctx.beginPath();
       ctx.rect(400, 200, 40, 60);
       ctx.fillStyle = "#FCCA2A";
@@ -136,6 +142,7 @@
       ctx.fillStyle = "white";
       ctx.fill();
 
+
       ctx.beginPath();
       ctx.arc(260, 210, 20, 0, 2 * Math.PI);
       ctx.fillStyle = "#1E61B5";
@@ -144,6 +151,7 @@
       ctx.arc(340, 210, 20, 0, 2 * Math.PI);
       ctx.fillStyle = "#1E61B5";
       ctx.fill();
+
       
       ctx.beginPath();
       ctx.fillStyle = "#E63946";  
@@ -164,9 +172,10 @@
       ctx.fillStyle = "#FCCA2A";
       ctx.fill();
 
+
       ctx.beginPath();
       ctx.fillStyle = "darkblue";
-      ctx.moveTo(285, 380);  
+      ctx.moveTo(285  , 380);  
       ctx.lineTo(240, 400);  
       ctx.lineTo(240, 360);  
       ctx.closePath();       
@@ -174,19 +183,15 @@
 
       ctx.beginPath();
       ctx.fillStyle = "darkblue";
-      ctx.moveTo(315, 380);  
+      ctx.moveTo(315  , 380);  
       ctx.lineTo(360, 400);  
       ctx.lineTo(360, 360);  
       ctx.closePath();       
       ctx.fill();
     </script>
+    <br>
 
-    <br /><br />
-
-
-    <h3>SVG verzija:</h3>
-    <svg width="600" height="500">
-        
+    <svg width="600" height="500" >
         <rect x="200" y="150" width="200" height="200" fill="#FDF7DD" />
 
         <rect x="200" y="100" width="200" height="50" fill="#1E61B5" />
@@ -211,22 +216,16 @@
 
         <polygon points="315,380 360,400 360,360" fill="darkblue" />
     </svg>
-    
+
     <br /><br /><br /><br />
-    <h3>Forma</h3>
     <form action="forma.html" method="get">
+      <!-- action=*-posalje na istu str,action=index-posalje na index -->
       <label for="name">Unesi ime</label>
-      <input
-        type="text"
-        id="name"
-        placeholder="Unesi ime..."
-        required
-        class="lbl"
-      />
+      <input type="text" id="name" placeholder="Unesi ime..." required class="lbl" />
       <br />
 
-      <label for="prez">Unesi e-mail</label>
-      <input type="text" id="prez" placeholder="Unesi e-mail..." class="lbl" />
+      <label for="email">Unesi e-mail</label>
+      <input type="email" id="email" placeholder="Unesi e-mail..." class="lbl" />
       <br />
 
       <label for="datum">Unesi datum</label>

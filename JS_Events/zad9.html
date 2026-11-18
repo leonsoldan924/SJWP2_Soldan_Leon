@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    #prostor {
+      width: 400px;
+      height: 300px;
+      border: 2px solid black;
+      position: relative;
+      margin-bottom: 10px;
+    }
+    #igrac {
+      width: 40px;
+      height: 40px;
+      position: absolute;
+    }
+  </style>
+</head>
+<body>
+    <div id="prostor">
+    <div id="igrac"></div>
+  </div>
+  <button id="btnReset">Resetiraj poziciju</button>
+
+  <script>
+    const elementIgrac = document.getElementById("igrac");
+    const btnReset = document.getElementById("btnReset");
+
+    const igrac = {
+      x: 0,
+      y: 0,
+      brzina: 20,
+      boja: "blue",
+
+      osvjeziPrikaz() {
+        elementIgrac.style.left = this.x + "px";
+        elementIgrac.style.top = this.y + "px";
+        elementIgrac.style.backgroundColor = this.boja;
+      },
+
+      pomakniLijevo() {
+        if (this.x - this.brzina >= 0) {
+          this.x -= this.brzina;
+          this.osvjeziPrikaz();
+        }
+      },
+
+      pomakniDesno() {
+        if (this.x + this.brzina <= 360) {
+          this.x += this.brzina;
+          this.osvjeziPrikaz();
+        }
+      },
+
+      pomakniGore() {
+        if (this.y - this.brzina >= 0) {
+          this.y -= this.brzina;
+          this.osvjeziPrikaz();
+        }
+      },
+
+      pomakniDolje() {
+        if (this.y + this.brzina <= 260) {
+          this.y += this.brzina;
+          this.osvjeziPrikaz();
+        }
+      },
+
+      resetiraj() {
+        this.x = 0;
+        this.y = 0;
+        this.osvjeziPrikaz();
+      }
+    };
+
+    igrac.osvjeziPrikaz();
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "ArrowLeft" || event.key === "a" || event.key === "A") {
+        igrac.pomakniLijevo();
+      } else if (event.key === "ArrowRight" || event.key === "d" || event.key === "D") {
+        igrac.pomakniDesno();
+      } else if (event.key === "ArrowUp" || event.key === "w" || event.key === "W") {
+        igrac.pomakniGore();
+      } else if (event.key === "ArrowDown" || event.key === "s" || event.key === "S") {
+        igrac.pomakniDolje();
+      }
+    });
+
+    btnReset.addEventListener("click", function () {
+      igrac.resetiraj();
+    });
+  </script>
+</body>
+</html>

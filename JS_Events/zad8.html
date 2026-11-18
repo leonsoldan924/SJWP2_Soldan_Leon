@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+    #povrsina {
+      width: 300px;
+      height: 150px;
+      background-color: lightgray;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 15px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
+    <title>Document</title>
+</head>
+<body>
+    <button id="btnPokreni">Pokreni</button>
+  <button id="btnPonovi">Ponovi</button>
+  <button id="btnOdustani">Otkaži</button>
+
+  <div id="povrsina">Klikni Pokreni</div>
+  <p id="rezultat"></p>
+
+  <script>
+    const btnPokreni = document.getElementById("btnPokreni");
+    const btnPonovi = document.getElementById("btnPonovi");
+    const btnOdustani = document.getElementById("btnOdustani");
+    const povrsina = document.getElementById("povrsina");
+    const rezultat = document.getElementById("rezultat");
+
+    let cekaSePromjena = false;
+    let spremnoZaKlik = false;
+    let vrijemePocetka = 0;
+    let timerId = null;
+
+    function pokreniTest() {
+      if (cekaSePromjena || spremnoZaKlik) {
+        return;
+      }
+
+      cekaSePromjena = true;
+      spremnoZaKlik = false;
+      povrsina.style.backgroundColor = "red";
+      povrsina.textContent = "Čekaj zelenu boju...";
+      rezultat.textContent = "";
+
+      const nasumicnoVrijeme = Math.floor(Math.random() * 4000) + 1000;
+
+      timerId = setTimeout(function () {
+        cekaSePromjena = false;
+        spremnoZaKlik = true;
+        povrsina.style.backgroundColor = "lightgreen";
+        povrsina.textContent = "KLIKNI SAD!";
+        vrijemePocetka = Date.now();
+      }, nasumicnoVrijeme);
+    }
+
+    function resetirajTest() {
+      clearTimeout(timerId);
+      cekaSePromjena = false;
+      spremnoZaKlik = false;
+      povrsina.style.backgroundColor = "lightgray";
+      povrsina.textContent = "Klikni Pokreni";
+      rezultat.textContent = "";
+    }
+
+    povrsina.addEventListener("click", function () {
+      if (cekaSePromjena) {
+        clearTimeout(timerId);
+        cekaSePromjena = false;
+        povrsina.style.backgroundColor = "orange";
+        povrsina.textContent = "Prerano!";
+        rezultat.textContent = "Kliknuo si prije promjene boje.";
+      } else if (spremnoZaKlik) {
+        const vrijemeReakcije = Date.now() - vrijemePocetka;
+        spremnoZaKlik = false;
+        povrsina.style.backgroundColor = "lightblue";
+        povrsina.textContent = "Gotovo!";
+        rezultat.textContent = "Vrijeme reakcije: " + vrijemeReakcije + " ms";
+      }
+    });
+
+    btnPokreni.addEventListener("click", pokreniTest);
+    btnPonovi.addEventListener("click", resetirajTest);
+    btnOdustani.addEventListener("click", function () {
+      clearTimeout(timerId);
+      cekaSePromjena = false;
+      spremnoZaKlik = false;
+      povrsina.style.backgroundColor = "lightgray";
+      povrsina.textContent = "Test otkazan.";
+    });
+  </script>
+</body>
+</html>

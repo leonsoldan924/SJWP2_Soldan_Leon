@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>Dodaj novu ocjenu</h3>
+  <select id="odabirUcenika"></select>
+  <input type="number" id="novaOcjena" placeholder="Ocjena (1-5)">
+  <button id="btnDodaj">Dodaj ocjenu</button>
+  <p id="poruka"></p>
+
+  <h3>Popis učenika</h3>
+  <ul id="listaUcenika"></ul>
+
+  <script>
+    function Ucenik(ime, prezime, razred, ocjene) {
+      this.ime = ime;
+      this.prezime = prezime;
+      this.razred = razred;
+      this.ocjene = ocjene;
+
+      this.izracunajProsjek = function () {
+        if (this.ocjene.length === 0) {
+          return 0;
+        }
+        let zbroj = 0;
+        for (let i = 0; i < this.ocjene.length; i++) {
+          zbroj += this.ocjene[i];
+        }
+        return (zbroj / this.ocjene.length).toFixed(2);
+      };
+
+      this.dodajOcjenu = function (ocjena) {
+        if (ocjena >= 1 && ocjena <= 5) {
+          this.ocjene.push(ocjena);
+          return true;
+        }
+        return false;
+      };
+
+      this.prikaziPodatke = function () {
+        return this.ime + " " + this.prezime + " (" + this.razred + ") - Ocjene: " + this.ocjene.join(", ") + " | Prosjek: " + this.izracunajProsjek();
+      };
+    }
+
+    const ucenici = [
+      new Ucenik("Ana", "Anić", "3.A", [5, 4, 5]),
+      new Ucenik("Luka", "Lukić", "3.B", [3, 4, 4]),
+      new Ucenik("Mia", "Mijić", "4.A", [5, 5, 4])
+    ];
+
+    const odabirUcenika = document.getElementById("odabirUcenika");
+    const listaUcenika = document.getElementById("listaUcenika");
+    const poruka = document.getElementById("poruka");
+    const btnDodaj = document.getElementById("btnDodaj");
+
+    ucenici.forEach(function (ucenik, indeks) {
+      const opcija = document.createElement("option");
+      opcija.value = indeks;
+      opcija.textContent = ucenik.ime + " " + ucenik.prezime;
+      odabirUcenika.appendChild(opcija);
+    });
+
+    function prikaziSveUcenike() {
+      listaUcenika.innerHTML = "";
+      ucenici.forEach(function (ucenik) {
+        const li = document.createElement("li");
+        li.textContent = ucenik.prikaziPodatke();
+        listaUcenika.appendChild(li);
+      });
+    }
+
+    prikaziSveUcenike();
+
+    btnDodaj.addEventListener("click", function () {
+      const indeks = Number(odabirUcenika.value);
+      const ocjena = Number(document.getElementById("novaOcjena").value);
+
+      if (ucenici[indeks].dodajOcjenu(ocjena)) {
+        poruka.textContent = "Ocjena je dodana.";
+        document.getElementById("novaOcjena").value = "";
+        prikaziSveUcenike();
+      } else {
+        poruka.textContent = "Greška: Ocjena mora biti od 1 do 5!";
+      }
+    });
+  </script>
+</body>
+</html>

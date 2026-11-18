@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>Dostupni proizvodi</h3>
+  <ul id="listaDostupnih"></ul>
+
+  <h3>Košarica</h3>
+  <ul id="listaKosarica"></ul>
+  <p id="ukupnoTekst">Ukupno: 0 €</p>
+
+  <button id="btnIsprazni">Isprazni košaricu</button>
+  <button id="btnPotvrdi">Potvrdi narudžbu</button>
+  <p id="porukaNarudzbe"></p>
+
+  <script>
+    function Proizvod(naziv, cijena, kolicina) {
+      this.naziv = naziv;
+      this.cijena = cijena;
+      this.kolicina = kolicina;
+
+      this.ukupnaCijena = function () {
+        return this.cijena * this.kolicina;
+      };
+    }
+
+    const dostupniProizvodi = [
+      new Proizvod("Tipkovnica", 30, 5),
+      new Proizvod("Miš", 15, 8),
+      new Proizvod("Slušalice", 50, 3)
+    ];
+
+    const kosarica = {
+      proizvodi: [],
+
+      dodaj(odabraniProizvod) {
+        if (odabraniProizvod.kolicina <= 0) {
+          alert("Nema više na zalihi!");
+          return;
+        }
+
+        let pronaden = null;
+        this.proizvodi.forEach(function (stavka) {
+          if (stavka.naziv === odabraniProizvod.naziv) {
+            pronaden = stavka;
+          }
+        });
+
+        if (pronaden) {
+          pronaden.kolicina++;
+        } else {
+          this.proizvodi.push(new Proizvod(odabraniProizvod.naziv, odabraniProizvod.cijena, 1));
+        }
+
+        odabraniProizvod.kolicina--;
+      },
+
+      ukloni() {
+        this.proizvodi.forEach(function (stavka) {
+          dostupniProizvodi.forEach(function (dostupan) {
+            if (dostupan.naziv === stavka.naziv) {
+              dostupan.kolicina += stavka.kolicina;
+            }
+          });
+        });
+        this.proizvodi = [];
+      },
+
+      izracunajUkupno() {
+        let ukupno = 0;
+        this.proizvodi.forEach(function (stavka) {
+          ukupno += stavka.ukupnaCijena();
+        });
+        return ukupno;
+      }
+    };
+
+    const listaDostupnih = document.getElementById("listaDostupnih");
+    const listaKosarica = document.getElementById("listaKosarica");
+    const ukupnoTekst = document.getElementById("ukupnoTekst");
+    const porukaNarudzbe = document.getElementById("porukaNarudzbe");
+
+    function osvjeziSučelje() {
+      listaDostupnih.innerHTML = "";
+      dostupniProizvodi.forEach(function (proizvod) {
+        const li = document.createElement("li");
+        li.textContent = proizvod.naziv + " - " + proizvod.cijena + " € (Zaliha: " + proizvod.kolicina + ") ";
+
+        const gumbDodaj = document.createElement("button");
+        gumbDodaj.textContent = "Dodaj";
+        gumbDodaj.addEventListener("click", function () {
+          kosarica.dodaj(proizvod);
+          osvjeziSučelje();
+        });
+
+        li.appendChild(gumbDodaj);
+        listaDostupnih.appendChild(li);
+      });
+
+      listaKosarica.innerHTML = "";
+      kosarica.proizvodi.forEach(function (stavka) {
+        const li = document.createElement("li");
+        li.textContent = stavka.naziv + " x " + stavka.kolicina + " = " + stavka.ukupnaCijena() + " €";
+        listaKosarica.appendChild(li);
+      });
+
+      ukupnoTekst.textContent = "Ukupno: " + kosarica.izracunajUkupno() + " €";
+    }
+
+    osvjeziSučelje();
+
+    document.getElementById("btnIsprazni").addEventListener("click", function () {
+      kosarica.ukloni();
+      porukaNarudzbe.textContent = "";
+      osvjeziSučelje();
+    });
+
+    document.getElementById("btnPotvrdi").addEventListener("click", function () {
+      if (kosarica.proizvodi.length === 0) {
+        porukaNarudzbe.textContent = "Košarica je prazna!";
+        return;
+      }
+
+      porukaNarudzbe.textContent = "Obrada narudžbe...";
+      setTimeout(function () {
+        porukaNarudzbe.textContent = "Narudžba zaprimljena!";
+        kosarica.proizvodi = [];
+        osvjeziSučelje();
+      }, 1500);
+    });
+  </script>
+</body>
+</html>

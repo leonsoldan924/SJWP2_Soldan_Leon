@@ -6,7 +6,88 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <p id="poruka">Boja semafora: crvena</p>
+    <p id="sem"></p>
+    <p id="stanje"></p>
+    <button id="boja">Promjeni boju</button>
+    <button id="ukljuci">Ukljuci</button>
+    <button id="iskljuci">Iskljuci</button>
+    <button id="prikazi">Prikazi stanje</button>
+    <script>
+        const poruka = document.getElementById("poruka");
+        const stanje = document.getElementById("stanje");
+        const sem = document.getElementById("sem");
+
+        const boja = document.getElementById("boja");
+        const ukljuc = document.getElementById("ukljuci");
+        const iskljuc = document.getElementById("iskljuci");
+        const prikazi = document.getElementById("prikazi");
+
+        boja.addEventListener("click", function () {
+            if (semafor.boja === "crvena") {
+                semafor.promijeniBoju("žuta");
+            } 
+            else if (semafor.boja === "žuta") {
+                semafor.promijeniBoju("zelena");
+            } 
+            else {
+                semafor.promijeniBoju("crvena");
+            }
+            
+        });
+        ukljuc.addEventListener("click", function () {
+            semafor.ukljuci();
+            
+        });
+        iskljuc.addEventListener("click", function () {
+            semafor.iskljuci();
+            
+        });
+        prikazi.addEventListener("click", function () {
+            semafor.prikaziStanje();
+            
+        });
+
+        const semafor = {
+
+            boja: "crvena",
+            trajanje: 30,
+            ukljucen: false,
+
+            
+
+            promijeniBoju(novaBoja) {
+                if (this.ukljucen) {
+                    this.boja = novaBoja;
+                    poruka.innerHTML = `Boja semafora promijenjena u: ${this.boja}`;
+                } 
+                else {
+                    alert("Semafor je isključen. Prvo ga uključi.");
+                }
+            },
+
+            ukljuci() {
+                this.ukljucen = true;
+                sem.textContent = "Semafor ukljucen.";
+            },
+
+            iskljuci() {
+                this.ukljucen = false;
+                sem.textContent = "Semafor iskljucen.";
+            },
+
+            prikaziStanje() {
+                let status = "Ukljucen";
+                if (this.ukljucen === false) {
+                    status = "Iskljucen";
+                }
+                stanje.innerHTML = `Status: ${status} | Trenutna boja: ${this.boja} | Trajanje: ${this.trajanje}s`;
+                console.log(ispis);
+                return ispis;
+            }
+        }
+        
+    </script>
 
 </body>
 </html>

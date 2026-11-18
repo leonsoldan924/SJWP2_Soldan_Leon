@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>Pogodi broj od 1 do 100</h3>
+  <input type="number" id="unosBroja" placeholder="Upiši broj">
+  <button id="btnProvjeri">Provjeri</button>
+  <button id="btnNova">Nova igra</button>
+
+  <p id="poruka"></p>
+  <p id="brojac">Broj pokušaja: 0</p>
+
+  <script>
+    let zamisljeniBroj = Math.floor(Math.random() * 100) + 1;
+    let pokusaji = 0;
+
+    const unosBroja = document.getElementById("unosBroja");
+    const btnProvjeri = document.getElementById("btnProvjeri");
+    const btnNova = document.getElementById("btnNova");
+    const poruka = document.getElementById("poruka");
+    const brojac = document.getElementById("brojac");
+
+    function provjeriPokusaj() {
+      const broj = Number(unosBroja.value);
+
+      if (broj < 1 || broj > 100) {
+        poruka.textContent = "Unesi broj između 1 i 100!";
+        return;
+      }
+
+      pokusaji++;
+      brojac.textContent = "Broj pokušaja: " + pokusaji;
+
+      if (broj < zamisljeniBroj) {
+        poruka.textContent = "Zamišljeni broj je VEĆI.";
+      } else if (broj > zamisljeniBroj) {
+        poruka.textContent = "Zamišljeni broj je MANJI.";
+      } else {
+        poruka.textContent = "Bravo! Pogodio si broj " + zamisljeniBroj + "!";
+        unosBroja.disabled = true;
+        btnProvjeri.disabled = true;
+      }
+
+      unosBroja.value = "";
+    }
+
+    function zapocniNovuIgru() {
+      zamisljeniBroj = Math.floor(Math.random() * 100) + 1;
+      pokusaji = 0;
+      brojac.textContent = "Broj pokušaja: 0";
+      poruka.textContent = "Nova igra je počela!";
+      unosBroja.value = "";
+      unosBroja.disabled = false;
+      btnProvjeri.disabled = false;
+    }
+
+    btnProvjeri.addEventListener("click", provjeriPokusaj);
+    btnNova.addEventListener("click", zapocniNovuIgru);
+
+    unosBroja.addEventListener("keydown", function (event) {
+      if (event.key === "Enter" && !btnProvjeri.disabled) {
+        provjeriPokusaj();
+      }
+    });
+  </script>
+</body>
+</html>
